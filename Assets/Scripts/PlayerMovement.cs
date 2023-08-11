@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
   [SerializeField] private float fallingMass;
   [SerializeField] private float defaultMass;
   [SerializeField] private LayerMask layerMask;
-  
+
   private Rigidbody2D _playerRb;
   private bool _onGround = true;
   private MovementType _movementType;
@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
   private void FixedUpdate()
   {
     RaycastHit2D hit2D = Physics2D.Raycast(transform.position,Vector2.down * 0.37f,0.37f,layerMask);
+    RaycastHit2D trapHit = Physics2D.Raycast(transform.position,transform.right * 0.4f,0.4f,layerMask);
     if (!(hit2D.collider == null))
     {
       OnGround();
@@ -39,6 +40,10 @@ public class PlayerMovement : MonoBehaviour
     else
     {
       NotOnGround();
+    }
+    if (!(trapHit.collider == null))
+    {
+      EventManager.Instance.OnPlayerDie.Invoke();
     }
   }
 
@@ -63,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
   }
   public void OnGround()
   {
-    _playerAnimator.SetBool("CanJump",false);
+    //_playerAnimator.SetBool("CanJump",false);
     if (_playerRb.velocity.y <= 0)
     {
       _playerRb.gravityScale = defaultMass;
@@ -88,5 +93,6 @@ public class PlayerMovement : MonoBehaviour
   private void OnDrawGizmos()
   {
     Debug.DrawRay(transform.position,Vector2.down * 0.37f,Color.black);
+    Debug.DrawRay(transform.position, transform.right * 0.4f,Color.cyan);
   }
 }

@@ -18,10 +18,12 @@ public class SceneManager : MonoBehaviour
         if (settingsMenu.activeSelf)
         {
             settingsMenu.SetActive(false);
+            Time.timeScale = 1;
         }
         else
         {
-            settingsMenu.SetActive(true);    
+            settingsMenu.SetActive(true);
+            Time.timeScale = 0;
         }
         
     }

@@ -29,10 +29,9 @@ public class PlayerMovement : MonoBehaviour
 
   private void FixedUpdate()
   {
-    RaycastHit2D hit2D = Physics2D.Raycast(transform.position,Vector2.down * 0.52f,0.52f,layerMask);
+    RaycastHit2D hit2D = Physics2D.Raycast(transform.position,Vector2.down * 0.37f,0.37f,layerMask);
     if (!(hit2D.collider == null))
     {
-      Debug.Log(hit2D.collider.name);
       OnGround();
     }
     else
@@ -71,8 +70,13 @@ public class PlayerMovement : MonoBehaviour
     _onGround = false;
   }
 
+  public bool IsGround()
+  {
+    return _onGround;
+  }
+
   private void OnDrawGizmos()
   {
-    Debug.DrawRay(transform.position,Vector2.down * 0.52f,Color.black);
+    Debug.DrawRay(transform.position,Vector2.down * 0.37f,Color.black);
   }
 }

@@ -14,17 +14,19 @@ public class PlayerMovement : MonoBehaviour
   [Header("Attributes")]
   [SerializeField] private float moveSpeed;
   [SerializeField] private float jumpPower;
+  [SerializeField] private float fallingMass;
+  [SerializeField] private float defaultMass;
   [SerializeField] private LayerMask layerMask;
   
   private Rigidbody2D _playerRb;
-  private Collider2D _playerCollider2D;
   private bool _onGround = true;
   private MovementType _movementType;
+  private Animator _playerAnimator;
 
   private void Awake()
   {
     _playerRb = GetComponent<Rigidbody2D>();
-    _playerCollider2D = GetComponent<Collider2D>();
+    _playerAnimator = GetComponent<Animator>();
   }
 
   private void FixedUpdate()
@@ -48,19 +50,23 @@ public class PlayerMovement : MonoBehaviour
       if (Input.GetMouseButton(0) && _onGround)
       {
         NormalJump();
+        
       }
     }
     
   }
   private void NormalJump()
   {
+    _playerAnimator.SetBool("CanJump",true);
     NotOnGround();
     _playerRb.AddForce(transform.up*jumpPower,ForceMode2D.Impulse);
   }
   public void OnGround()
   {
+    _playerAnimator.SetBool("CanJump",false);
     if (_playerRb.velocity.y <= 0)
     {
+      _playerRb.gravityScale = defaultMass;
       _onGround = true;
       EventManager.Instance.OnGroundEvent.Invoke();
     }
@@ -69,6 +75,9 @@ public class PlayerMovement : MonoBehaviour
   {
     _onGround = false;
     EventManager.Instance.NotOnGroundEvent.Invoke();
+    if (_playerRb.velocity.y <= 0)
+    {
+      _playerRb.gravityScale = fallingMass; }
   }
 
   public bool IsGround()

@@ -3,40 +3,60 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class ProgressIndıcator : MonoBehaviour
 {
-    [SerializeField] private Transform endLine;
-    [SerializeField] private Transform playerTransform;
+    private Transform _endLine;
+    private Transform _playerTransform;
+    private GameData _gameData;
+    
     private TextMeshProUGUI _progressIndicatorText;
+    
     private float _distance;
     private float _fullDistance;
     private float _progressValue;
-    private float _maxProgressValue;
     private float _playerStartPosition;
+    
+    public float maxProgressValue;
 
     private void Start()
     {
-        _fullDistance = endLine.transform.position.x - playerTransform.position.x;
-        _playerStartPosition = playerTransform.position.x;
+        InitilizeGameManagerValues();
+        
+        _fullDistance = _endLine.transform.position.x - _playerTransform.position.x;
+        _playerStartPosition = _playerTransform.position.x;
         _progressIndicatorText = GetComponent<TextMeshProUGUI>();
         StartCoroutine(UpdateIndicator());
     }
 
     IEnumerator UpdateIndicator()
     {
-        while (_maxProgressValue < 100)
+        while (maxProgressValue < 100)
         {
-            _distance = endLine.transform.position.x - playerTransform.position.x;
+            _distance = _endLine.transform.position.x - _playerTransform.position.x;
             _progressValue = 100 - (Mathf.InverseLerp(0, _fullDistance, _distance)*100);
-            if (_maxProgressValue < _progressValue)
+            if (maxProgressValue < _progressValue)
             {
-                _maxProgressValue = _progressValue;
+                _gameData.SaveProgress(maxProgressValue);
+                maxProgressValue = _progressValue;
             }
-            _progressIndicatorText.text = "%" + _maxProgressValue.ToString("F0");
+            _progressIndicatorText.text = "%" + maxProgressValue.ToString("F0");
             yield return new WaitForSeconds(0.5f);
         }
-        
     }
+
+    public void ResetIndicator()
+    {
+        maxProgressValue = 0;
+    }
+
+    void InitilizeGameManagerValues()
+    {
+        _gameData = GameManager.Instance.gameData;
+        _playerTransform = GameManager.Instance.player.transform;
+        _endLine = GameManager.Instance.endLine.transform;
+    }
+    
 }

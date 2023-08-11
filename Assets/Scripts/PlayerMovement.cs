@@ -61,13 +61,14 @@ public class PlayerMovement : MonoBehaviour
   {
     if (_playerRb.velocity.y <= 0)
     {
-      _onGround = true;  
+      _onGround = true;
+      EventManager.Instance.OnGroundEvent.Invoke();
     }
-    
   }
   public void NotOnGround()
   {
     _onGround = false;
+    EventManager.Instance.NotOnGroundEvent.Invoke();
   }
 
   public bool IsGround()

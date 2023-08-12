@@ -11,22 +11,35 @@ public class PlayerEvents : MonoBehaviour
     private Transform _playerStartPosition;
     private ProgressIndıcator _progressIndicator;
     private DieCounter _dieCounter;
+    private GameObject _moveParticle;
     
 
     private void Start()
     {
         InitilizeValues();
         EventManager.Instance.OnPlayerDie += OnPlayerDieCallback;
+        EventManager.Instance.NotOnGroundEvent += NotOnGroundEventCallback;
+        EventManager.Instance.OnGroundEvent += OnGroundEventCallback;
     }
 
     private void OnDestroy()
     {
         EventManager.Instance.OnPlayerDie -= OnPlayerDieCallback;
+        EventManager.Instance.NotOnGroundEvent -= NotOnGroundEventCallback;
+        EventManager.Instance.OnGroundEvent -= OnGroundEventCallback;
     }
 
     private void OnPlayerDieCallback()
     {
         StartCoroutine(PlayerDieCoroutine());
+    }
+    void NotOnGroundEventCallback()
+    {
+        _moveParticle.SetActive(false);
+    }
+    void OnGroundEventCallback()
+    {
+        _moveParticle.SetActive(true);
     }
 
     private void InitilizeValues()
@@ -36,6 +49,7 @@ public class PlayerEvents : MonoBehaviour
         _playerStartPosition = GameManager.Instance.startLine;
         _progressIndicator = GameManager.Instance.progressIndıcator;
         _dieCounter = GameManager.Instance.dieCounter;
+        _moveParticle = GameManager.Instance.moveParticle;
     }
 
     IEnumerator PlayerDieCoroutine()

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class ProgressIndıcator : MonoBehaviour
@@ -13,6 +14,7 @@ public class ProgressIndıcator : MonoBehaviour
     private GameData _gameData;
     
     private TextMeshProUGUI _progressIndicatorText;
+    private Image _progressIndicatorImage;
     
     private float _distance;
     private float _fullDistance;
@@ -23,11 +25,11 @@ public class ProgressIndıcator : MonoBehaviour
 
     private void Start()
     {
-        InitilizeGameManagerValues();
+        InitilizeValues();
         
         _fullDistance = _endLine.transform.position.x - _playerTransform.position.x;
         _playerStartPosition = _playerTransform.position.x;
-        _progressIndicatorText = GetComponent<TextMeshProUGUI>();
+        
         StartCoroutine(UpdateIndicator());
     }
 
@@ -43,7 +45,9 @@ public class ProgressIndıcator : MonoBehaviour
                 maxProgressValue = _progressValue;
             }
             _progressIndicatorText.text = "%" + maxProgressValue.ToString("F0");
-            yield return new WaitForSeconds(0.5f);
+            _progressIndicatorImage.fillAmount = maxProgressValue/100;
+            
+            yield return new WaitForSeconds(0.25f);
         }
     }
 
@@ -52,11 +56,14 @@ public class ProgressIndıcator : MonoBehaviour
         maxProgressValue = 0;
     }
 
-    void InitilizeGameManagerValues()
+    void InitilizeValues()
     {
         _gameData = GameManager.Instance.gameData;
         _playerTransform = GameManager.Instance.player.transform;
         _endLine = GameManager.Instance.endLine.transform;
+        _progressIndicatorImage = GameManager.Instance.progressImage;
+        _progressIndicatorText = GetComponent<TextMeshProUGUI>();
+        
     }
     
 }

@@ -40,15 +40,16 @@ public class PlayerEvents : MonoBehaviour
 
     IEnumerator PlayerDieCoroutine()
     {
+        GameManager.Instance.playerCam.m_Lens.Dutch = 0;
+        _deathParticle.Play();
         GameManager.Instance.gameData.IncreaseDieCount();
         _dieCounter.UpdateDieCounter();
         _progressIndicator.ResetIndicator();
-        
         _deathParticle.transform.position = _player.transform.position;
-        _deathParticle.Play();
-        
+
         _player.SetActive(false);
         _player.transform.position = _playerStartPosition.position;
+        _player.GetComponent<PlayerMovement>().ResetMoveType();
         
         yield return new WaitForSeconds(_deathParticle.main.duration);
         

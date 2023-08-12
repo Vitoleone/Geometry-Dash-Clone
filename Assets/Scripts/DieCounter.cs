@@ -17,4 +17,9 @@ public class DieCounter : MonoBehaviour
     {
         _dieCounterText.text = "Attempt " + GameManager.Instance.gameData.playerDieCount;
     }
+
+    public void ResetDieCounter()
+    {
+        GameManager.Instance.gameData.ResetDieCount();
+    }
 }

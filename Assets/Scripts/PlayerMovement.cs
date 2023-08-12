@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-  enum MovementType
+  public enum MovementType
   {
     Normal,
     Carpet
@@ -99,7 +99,18 @@ public class PlayerMovement : MonoBehaviour
   {
     _onGround = false;
     EventManager.Instance.NotOnGroundEvent.Invoke();
-    }
+  }
+
+  public void ChangeMovement(MovementType newType)
+  {
+    _movementType = newType;
+  }
+
+  public void ResetMoveType()
+  {
+    _movementType = MovementType.Normal;
+    carpet.SetActive(false);
+  }
 
   public bool IsGround()
   {

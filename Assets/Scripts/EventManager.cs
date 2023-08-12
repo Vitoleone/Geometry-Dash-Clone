@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour
     public UnityAction OnGroundEvent;
     public UnityAction NotOnGroundEvent;
     public UnityAction OnPlayerDie;
+    public UnityAction OnGameEnd;
 
     private void Awake()
     {

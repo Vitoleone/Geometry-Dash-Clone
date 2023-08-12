@@ -27,6 +27,20 @@ public class SceneManager : MonoBehaviour
         }
         
     }
+
+    public void Restart()
+    {
+        GameManager.Instance.stageClearedPanel.SetActive(false);
+        Time.timeScale = 1;
+        GameManager.Instance.dieCounter.ResetDieCounter();
+        GameManager.Instance.progressIndıcator.ResetIndicator();
+        EventManager.Instance.OnPlayerDie.Invoke();
+    }
+
+    public void MainMenu()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
     
 
     public void Exit()

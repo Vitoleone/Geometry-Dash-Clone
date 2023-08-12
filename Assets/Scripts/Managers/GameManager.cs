@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject stageClearedPanel;
     [Header("UI")]
     public Image progressImage;
+    public TextMeshProUGUI highScoreText;
     [Header("Transform")]
     public Transform startLine;
     public Transform endLine;

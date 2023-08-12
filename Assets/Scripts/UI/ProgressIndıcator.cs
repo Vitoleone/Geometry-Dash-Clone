@@ -41,8 +41,8 @@ public class ProgressIndıcator : MonoBehaviour
             _progressValue = 100 - (Mathf.InverseLerp(0, _fullDistance, _distance)*100);
             if (maxProgressValue < _progressValue)
             {
-                _gameData.SaveProgress(maxProgressValue);
                 maxProgressValue = _progressValue;
+                _gameData.SaveProgress(maxProgressValue);
             }
             _progressIndicatorText.text = "%" + maxProgressValue.ToString("F0");
             _progressIndicatorImage.fillAmount = maxProgressValue/100;

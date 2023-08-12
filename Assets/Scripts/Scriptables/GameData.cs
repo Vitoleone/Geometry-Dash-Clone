@@ -14,6 +14,7 @@ public class GameData : ScriptableObject
         if (progress >= maxProgress)
         {
             maxProgress = progress;
+            EventManager.Instance.OnHighScoreChanged.Invoke(GameManager.Instance.highScoreText);
         }
     }
 

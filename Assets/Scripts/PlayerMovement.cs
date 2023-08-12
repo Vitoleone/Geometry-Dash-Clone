@@ -9,18 +9,18 @@ public class PlayerMovement : MonoBehaviour
   enum MovementType
   {
     Normal,
-    Rocket
+    Carpet
   }
   [Header("Attributes")]
   [SerializeField] private float moveSpeed;
   [SerializeField] private float jumpPower;
-  [SerializeField] private float fallingMass;
-  [SerializeField] private float defaultMass;
+  [SerializeField] private float carpetSpeed;
   [SerializeField] private LayerMask layerMask;
+  [SerializeField] private GameObject carpet;
 
   private Rigidbody2D _playerRb;
   private bool _onGround = true;
-  private MovementType _movementType;
+  [SerializeField]private MovementType _movementType;
   private Animator _playerAnimator;
 
   private void Awake()
@@ -49,15 +49,29 @@ public class PlayerMovement : MonoBehaviour
 
   private void Update()
   {
+    gameObject.transform.position += transform.right * (moveSpeed * Time.deltaTime);
     if (_movementType == MovementType.Normal)
     {
-      gameObject.transform.position += transform.right * (moveSpeed * Time.deltaTime);
       if (Input.GetMouseButton(0) && _onGround)
       {
         NormalJump();
         
       }
     }
+    else if (_movementType == MovementType.Carpet)
+    {
+      carpet.SetActive(true);
+      if (Input.GetMouseButton(0))
+      {
+        Fly();
+      }
+      else if (Input.GetMouseButtonUp(0))
+      {
+        _playerAnimator.SetBool("isFlyDown",true);
+        _playerAnimator.SetBool("isFlyUp",false);
+      }
+    }
+    
     
   }
   private void NormalJump()
@@ -66,12 +80,17 @@ public class PlayerMovement : MonoBehaviour
     NotOnGround();
     _playerRb.AddForce(transform.up*jumpPower,ForceMode2D.Impulse);
   }
+  private void Fly()
+  {
+    _playerAnimator.SetBool("isFlyUp",true);
+    _playerAnimator.SetBool("isFlyDown",false);
+    _playerRb.AddForce(Vector2.up*carpetSpeed,ForceMode2D.Force);
+  }
   public void OnGround()
   {
     //_playerAnimator.SetBool("CanJump",false);
     if (_playerRb.velocity.y <= 0)
     {
-      _playerRb.gravityScale = defaultMass;
       _onGround = true;
       EventManager.Instance.OnGroundEvent.Invoke();
     }
@@ -80,10 +99,7 @@ public class PlayerMovement : MonoBehaviour
   {
     _onGround = false;
     EventManager.Instance.NotOnGroundEvent.Invoke();
-    if (_playerRb.velocity.y <= 0)
-    {
-      _playerRb.gravityScale = fallingMass; }
-  }
+    }
 
   public bool IsGround()
   {

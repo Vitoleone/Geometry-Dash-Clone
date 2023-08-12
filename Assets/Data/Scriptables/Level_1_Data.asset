@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Level_1_Data
   m_EditorClassIdentifier: 
   maxProgress: 0
-  playerDieCount: 0
+  playerDieCount: 4

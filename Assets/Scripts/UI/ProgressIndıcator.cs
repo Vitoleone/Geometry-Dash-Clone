@@ -33,7 +33,7 @@ public class ProgressIndıcator : MonoBehaviour
         StartCoroutine(UpdateIndicator());
     }
 
-    IEnumerator UpdateIndicator()
+    IEnumerator UpdateIndicator()//Updates indicator value every 0.25 seconds(don't write in update for performance)
     {
         while (maxProgressValue < 100)
         {
@@ -50,12 +50,10 @@ public class ProgressIndıcator : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
         }
     }
-
     public void ResetIndicator()
     {
         maxProgressValue = 0;
     }
-
     void InitilizeValues()
     {
         _gameData = GameManager.Instance.gameData;

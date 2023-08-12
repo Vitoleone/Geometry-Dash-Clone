@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using Cinemachine;
 using UnityEngine;
@@ -8,16 +9,19 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameData gameData;
+    [Header("GameObjects")]
     public GameObject player;
     public GameObject moveParticle;
     public GameObject stageClearedPanel;
+    [Header("UI")]
     public Image progressImage;
-    public ParticleSystem deathParticle;
-    public CinemachineVirtualCamera playerCam;
-    
+    [Header("Transform")]
     public Transform startLine;
     public Transform endLine;
+    [Header("Other")]
+    public GameData gameData;
+    public ParticleSystem deathParticle;
+    public CinemachineVirtualCamera playerCam;
     public ProgressIndıcator progressIndıcator;
     public DieCounter dieCounter;
 

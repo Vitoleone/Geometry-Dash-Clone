@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,15 @@ using Application = UnityEngine.Device.Application;
 
 public class SceneManager : MonoBehaviour
 {
-    [SerializeField] private GameObject settingsMenu; 
+    [Header("GameObject")]
+    [SerializeField] private GameObject settingsMenu;
+
     public void PlayGame()
     {
+        Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Level1");
         AudioManager.Instance.PlayTheme();
     }
-
     public void Settings()
     {
         if (settingsMenu.activeSelf)
@@ -27,8 +30,7 @@ public class SceneManager : MonoBehaviour
         }
         
     }
-
-    public void Restart()
+    public void Restart()//restart the game
     {
         GameManager.Instance.stageClearedPanel.SetActive(false);
         Time.timeScale = 1;
@@ -41,8 +43,6 @@ public class SceneManager : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
-    
-
     public void Exit()
     {
         Application.Quit();

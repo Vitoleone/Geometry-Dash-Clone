@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "GameData", fileName = "GameData")]
 public class GameData : ScriptableObject
 {
+    //Created for save current stage's data, maybe used in future?
     public float maxProgress;
     public int playerDieCount;
 

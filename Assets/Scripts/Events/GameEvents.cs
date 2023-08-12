@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameEvents : MonoBehaviour
 {
-    private void Start()
+    private void Start()//This script created for controlling game flow.
     {
         EventManager.Instance.OnGameEnd += OnGameEndCallback;
     }
@@ -16,7 +16,6 @@ public class GameEvents : MonoBehaviour
 
     private void OnGameEndCallback()
     {
-        GameManager.Instance.playerCam.m_Lens.Dutch = 0;
         GameManager.Instance.stageClearedPanel.SetActive(true);
         Time.timeScale = 0;
     }

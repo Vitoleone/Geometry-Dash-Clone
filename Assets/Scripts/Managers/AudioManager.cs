@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
+    [Header("Played Sound")]
     [SerializeField] private AudioClip playTheme;
     private AudioSource _audioSource;
 

@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     gameObject.transform.position += transform.right * (moveSpeed * Time.deltaTime);
     if (_movementType == MovementType.Normal)
     {
-      if (Input.GetMouseButton(0) && _onGround)
+      if ((Input.GetMouseButton(0) || Input.touchCount > 0) && _onGround)
       {
         NormalJump();
         
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     else if (_movementType == MovementType.Carpet)
     {
       carpet.SetActive(true);
-      if (Input.GetMouseButton(0))
+      if (Input.GetMouseButton(0) || Input.touchCount > 0)
       {
         Fly();
       }

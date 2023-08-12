@@ -17489,9 +17489,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3888b1f34e842ca4bac5c194e61e6531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5.5
+  moveSpeed: 6.25
   jumpPower: 14.5
-  carpetSpeed: 70
+  carpetSpeed: 65
   layerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -30476,7 +30476,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1790455821}
-  - component: {fileID: 1790455820}
   - component: {fileID: 1790455819}
   - component: {fileID: 1790455822}
   m_Layer: 0
@@ -30496,18 +30495,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ffad9c79fbe08b54a9e509defa001130, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1790455820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1790455818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ee653828b5778543842b78884174608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1790455821
